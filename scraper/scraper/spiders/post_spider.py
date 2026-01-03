@@ -25,7 +25,7 @@ def process_response(response):
     Returns a LinkedIn job webpage's description from a given page response
     """
     tags = response.css("section.show-more-less-html ::text").getall()
-    return chr(0x20).join(filter(bool, map(str.strip, tags))).strip()
+    return "\n".join(filter(bool, map(str.strip, tags))).strip()
 
 class PostSpider(scrapy.Spider):
     """
