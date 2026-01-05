@@ -1,6 +1,3 @@
-[submodule "world-cities"]
-	path = world-cities
-	url = git@github.com:datasets/world-cities.git
 [submodule "language-codes"]
 	path = language-codes
 	url = https://github.com/datasets/language-codes.git
