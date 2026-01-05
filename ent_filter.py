@@ -20,6 +20,11 @@ def load_languages():
 orgs = load_orgs()
 languages = load_languages()
 
+def from_disk(path):
+    """Load a doc from a serialized DocBin from a file."""
+    d_bin = DocBin().from_disk(path)
+    return d_bin.get_docs(nlp.vocab)
+
 def filter_ent(e):
     """Returns the given entity as passing the filter (True) or filtered (False)"""
     # Filter entities based on labels_
@@ -49,7 +54,6 @@ def filter_ents(d):
     return d
 
 nlp = spacy.load("en_core_web_lg")
-doc_bin = DocBin().from_disk("jd2docs.spacy")
-docs = doc_bin.get_docs(nlp.vocab)
+docs = from_disk("jd2docs.spacy")
 doc_bin = DocBin(docs=map(filter_ents, docs), store_user_data=True)
 doc_bin.to_disk("./ent_filter.spacy")
