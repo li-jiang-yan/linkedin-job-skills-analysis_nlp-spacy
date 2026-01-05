@@ -37,6 +37,10 @@ def filter_ent(e):
     if "\n" in e.text:
         return False
 
+    # Filter out entities with commas
+    if "," in e.text:
+        return False
+
     return True
 
 def filter_ents(d):
