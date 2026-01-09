@@ -1,6 +1,7 @@
 """
 Scrape LinkedIn Jobs to get a list of job posting URLs
 """
+import json
 import scrapy
 
 KEYWORDS = "Computer%20Science"
@@ -16,16 +17,26 @@ def get_start_url(start):
               f"&start={start}")
     return result
 
+def save_json(input_list):
+    """
+    Save a given input list into orgs.json
+    """
+    filename = "post_urls.json"
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(input_list, f, indent=4)
+
 class LinkedInSpider(scrapy.Spider):
     """
     scrapy.Spider class for LinkedIn Jobs page
     """
     name = "linkedin"
     start_urls = list(map(get_start_url, range(0, 1000, 10)))
+    post_urls = []
 
     def parse(self, response):
         """Parser for scrapy.Spider class"""
-        filename = "post_urls.txt"
-        with open(filename, "a", encoding="utf-8") as f:
-            for href in response.css("a.base-card__full-link::attr(href)").getall():
-                f.write(href + "\n")
+        self.post_urls += list(response.css("a.base-card__full-link::attr(href)").getall())
+
+    def closed(self, _):
+        """Executes at end of crawl"""
+        save_json(self.post_urls)
