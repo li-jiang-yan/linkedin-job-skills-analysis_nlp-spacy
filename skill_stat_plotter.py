@@ -9,9 +9,9 @@ def load_json(filename):
     with open(filename, "r", encoding="utf-8") as f:
         return json.load(f)
 
-SKILLS = ["Python", "SQL", "AI", "Java", "AWS", "API", "C++", "Linux", "Azure",
-          "JavaScript", "DevOps", "PyTorch", "Docker", "GCP", "UI", "CI", "TensorFlow",
-          "ETL", "Excel", "Tableau"]
+SKILLS = ["python", "sql", "ai", "java", "aws", "api", "c++", "linux", "javascript",
+          "azure", "devops", "pytorch", "docker", "gcp", "ui", "tensorflow", "ci",
+          "etl", "excel", "tableau"]
 
 divisor = len(load_json("scraper/job_descriptions.json"))
 counters = dict(load_json("ent_counter.json"))

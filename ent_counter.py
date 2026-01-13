@@ -7,9 +7,13 @@ from operator import attrgetter
 import spacy
 from spacy.tokens import DocBin
 
+def text_lower(e):
+    """Returns the lowercase of the given entity's text"""
+    return e.text.lower()
+
 def ent_texts(d):
     """Returns a set containing the text of entities in d"""
-    return set(map(attrgetter("text"), d.ents))
+    return set(map(text_lower, d.ents))
 
 nlp = spacy.load("en_core_web_lg")
 doc_bin = DocBin().from_disk("ent_filter_.spacy")
